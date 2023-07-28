@@ -40,4 +40,5 @@ body {
 
 .grid-column {
     flex-grow: 1;
+    user-select: none;
 }
