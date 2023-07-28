@@ -10,10 +10,11 @@
 <body>
     <div class="controls">
         <div class="select-value">
-            <input id="width-field" class="select-value-field" type="number" placeholder="width" value="64" max="128" min="2">
-            <input id="height-field" class="select-value-field" type="number" placeholder="height" value="64" max="128" min="2">
+            <div id="grid-size">Current size: <span id="current-grid-size">64x64</span></div>
+            <input id="grid-dimensions-slider" class="select-value-field" type="range" value="64" max="128" min="8">
         </div>
         <button class="select-value-submit">Enter</button>
+        <button class="select-value-clear">Reset</button>
     </div>
     <div class="grid"></div>
     <div class="status"></div>
