@@ -8,7 +8,13 @@
     <title>Etch A Sketch</title>
 </head>
 <body>
-    <div class="controls"></div>
+    <div class="controls">
+        <div class="select-value">
+            <input id="width-field" class="select-value-field" type="number" placeholder="width" value="64" max="128" min="2">
+            <input id="height-field" class="select-value-field" type="number" placeholder="height" value="64" max="128" min="2">
+        </div>
+        <button class="select-value-submit">Enter</button>
+    </div>
     <div class="grid"></div>
     <div class="status"></div>
 </body>

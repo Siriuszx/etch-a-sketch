@@ -1,23 +1,41 @@
 const grid = document.querySelector('.grid');
-let canDraw = false;
+
+const gridSizeField = document.querySelector('#current-grid-size')
+const gridSizeSlider = document.querySelector('#grid-dimensions-slider');
+
+gridSizeSlider.addEventListener('mouseover', updateSizeValue)
+gridSizeSlider.addEventListener('mousedown', updateSizeValue)
+gridSizeSlider.addEventListener('mouseup', updateSizeValue)
 
 
-function initGrid(width, height) {
-    for (let i = 0; i < height; i++) {
+let mouseToggle = false;
+
+const submitSize = document.querySelector('.select-value-submit');
+submitSize.addEventListener('click', resizeGrid);
+
+function resizeGrid() {
+    grid.innerHTML = '';
+
+    let gridSize = gridSizeSlider.value;
+
+    for (let i = 0; i < gridSize; i++) {
         const newRow = document.createElement('div');
         newRow.classList.add('grid-row');
         grid.appendChild(newRow);
 
-        for (let y = 0; y < width; y++) {
+        for (let y = 0; y < gridSize; y++) {
             const newColumn = document.createElement('div');
             newColumn.classList.add('grid-column');
             newRow.appendChild(newColumn);
         }
     }
+    updateListeners();
 }
 
-function returnEl(e){
-    console.log(e);
+function updateSizeValue(e) {
+    if (e.type === 'mousedown') mouseToggle = true;
+    if (e.type === 'mouseover' && mouseToggle) gridSizeField.textContent = this.value;
+    if (e.type === 'mouseup') mouseToggle = false;
 }
 
 function updateListeners() {
@@ -31,10 +49,10 @@ function updateListeners() {
 }
 
 function colorCell(e) {
-    if(e.type === 'mousedown') canDraw = true;
-    if(e.type === 'mouseover' && canDraw) this.style.backgroundColor = 'black';
-    if(e.type === 'mouseup') canDraw = false;
+    if (e.type === 'mousedown') mouseToggle = true;
+    if (e.type === 'mouseover' && mouseToggle) this.style.backgroundColor = 'black';
+    if (e.type === 'mouseup') mouseToggle = false;
 }
 
-initGrid(64, 64);
+resizeGrid(64, 64);
 updateListeners();
