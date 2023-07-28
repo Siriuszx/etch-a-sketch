@@ -54,9 +54,20 @@ function colorCellHandler(event) {
     if (mouseToggle) {
         if (!isColorRandom) {
             this.style.backgroundColor = 'black';
-        } else {
+        } else if (!this.dataset.value) {
+            let hue = Math.floor(Math.random() * 361);
+            let saturation = Math.floor(Math.random() * 101);
+            let lightness = Math.floor(Math.random() * 101);
+            let defLightness = lightness;
+
             this.style.backgroundColor =
-                `rgb(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`;
+                `hsl(${hue},${saturation}%,${lightness}%)`;
+            this.setAttribute('data-value', `${hue} ${saturation} ${lightness} ${defLightness}`);
+        } else if (this.dataset.value) {
+            let hsl = this.getAttribute('data-value').split(' ');
+            hsl[2] = hsl[2] - hsl[3] * 0.1;
+            this.style.backgroundColor = `hsl(${hsl[0]},${hsl[1]}%,${hsl[2]}%)`;
+            this.setAttribute('data-value', hsl.join(' '));
         }
     }
     if (event.type === 'mouseup') mouseToggle = false;
