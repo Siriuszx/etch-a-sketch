@@ -1,4 +1,6 @@
 const grid = document.querySelector('.grid');
+let canDraw = false;
+
 
 function initGrid(width, height) {
     for (let i = 0; i < height; i++) {
@@ -14,16 +16,24 @@ function initGrid(width, height) {
     }
 }
 
+function returnEl(e){
+    console.log(e);
+}
+
 function updateListeners() {
     const colNodes = document.querySelectorAll('.grid-column');
 
     colNodes.forEach(el => {
         el.addEventListener('mouseover', colorCell)
+        el.addEventListener('mousedown', colorCell)
+        el.addEventListener('mouseup', colorCell)
     })
 }
 
 function colorCell(e) {
-    this.style.backgroundColor = 'black';
+    if(e.type === 'mousedown') canDraw = true;
+    if(e.type === 'mouseover' && canDraw) this.style.backgroundColor = 'black';
+    if(e.type === 'mouseup') canDraw = false;
 }
 
 initGrid(64, 64);
